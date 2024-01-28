@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import CreateAccountPage from './CreateAccountPage';
+import { useNavigate } from 'react-router-dom';
+
 
 const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: #ffc0cb;
+  background-image: linear-gradient(to bottom right, #ecf0f1, #c0392b, #ecf0f1);
+
 `;
 
 const HeaderContainer = styled.div`
@@ -17,7 +20,7 @@ const HeaderContainer = styled.div`
   right: 0;
   text-align: center;
   padding: 30px 0; /* Adjust the padding as needed */
-  background-color: #ffc0cb; /* Pink background color for the header */
+  background-image: linear-gradient(to bottom right, #ecf0f1, #c0392b, #ecf0f1)
   z-index: 1; /* Ensure the header is above other content */
 `;
 
@@ -106,15 +109,16 @@ const CreateAccountButton = styled.button`
 `;
 
 const Header = styled.h2`
-  font-family: 'Helvetica';
+  font-family: 'Pacifico', cursive; /* Use Pacifico or any other cursive font you prefer */
   text-align: center;
   color: #2F4F4F;
   font-weight: bold;
-  font-size: 2.5rem; /* Adjust the font size as needed */
+  font-size: 3.6rem; /* Adjust the font size as needed */
 `;
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
+  const navigate = useNavigate();
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -122,12 +126,26 @@ const LoginPage: React.FC = () => {
 
 
   const handleLogin = async () => {
-    // Your login logic here
+    
+    if (email === 'test123@gmail.com' && password === 'password') {
+      // Authentication successful
+      // Redirect or perform necessary actions
+      console.log('Authentication successful');
+      navigate('/dashboard');
+      setError(null); // Clear any previous errors
+    } else {
+      // Authentication failed
+      setError('Invalid email or password');
+    }
+
+    setLoading(false);
   };
+  
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Additional form submission logic if needed
+    handleLogin();
+  
   };
 
 
@@ -176,14 +194,9 @@ const LoginPage: React.FC = () => {
             </StyledLink>
             {/* Divider */}
             <Divider />
-            {/* Create new account button */}
-            <CreateAccountButton onClick={handleCreateAccountClick}>
-              Create New Account
-            </CreateAccountButton>
           </form>
         </LoginBox>
         {showCreateAccount && <CreateAccountPage onCancel={handleCreateAccountClick} />}
-
       </Container>
     </div>
   );
