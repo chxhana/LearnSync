@@ -9,7 +9,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-image: linear-gradient(to bottom right, #ecf0f1, #c0392b, #ecf0f1);
+  background-image: linear-gradient(to bottom right, #6c63ff, #ff636c)
 
 `;
 
@@ -20,7 +20,7 @@ const HeaderContainer = styled.div`
   right: 0;
   text-align: center;
   padding: 30px 0; /* Adjust the padding as needed */
-  background-image: linear-gradient(to bottom right, #ecf0f1, #c0392b, #ecf0f1)
+  background-image: linear-gradient(to bottom right, #6c63ff, #ff636c)
   z-index: 1; /* Ensure the header is above other content */
 `;
 
@@ -111,7 +111,7 @@ const CreateAccountButton = styled.button`
 const Header = styled.h2`
   font-family: 'Pacifico', cursive; /* Use Pacifico or any other cursive font you prefer */
   text-align: center;
-  color: #2F4F4F;
+  color: #464648;
   font-weight: bold;
   font-size: 3.6rem; /* Adjust the font size as needed */
 `;
