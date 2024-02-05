@@ -1,0 +1,17 @@
+{
+  "name": "learnsync_api",
+  "version": "1.0.0",
+  "description": "Server for Canvas API",
+  "main": "dist/server.ts",
+  "scripts": {
+    "start":"node dist/server.ts",
+    "dev":"ts-node src/server.ts",
+    "build":"tsc ",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "axios":"1.6.7"
+  },
+  "author": "",
+  "license": "ISC"
+}
