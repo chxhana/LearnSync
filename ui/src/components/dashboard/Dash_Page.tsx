@@ -1,5 +1,5 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import fetchCourses from './course_list';
 
 interface Course {
   id: number;
@@ -12,8 +12,8 @@ const DashPage: React.FC = () => {
   useEffect(() => {
     const getCourses = async () => {
       try {
-        const coursesData = await fetchCourses();
-        setCourses(coursesData);
+        const coursesData = await axios.get("http://localhost:3001/api/courses");
+        setCourses(coursesData.data);
       } catch (error: any) {
         console.error((error as Error).message);
       }
