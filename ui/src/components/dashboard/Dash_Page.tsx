@@ -23,17 +23,18 @@ const DashPage: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <h2>Your Courses</h2>
-      <div style={{ border: '1px solid #ccc', padding: '20px', borderRadius: '8px' }}>
-        <ul>
-          {courses.map(course => (
-            <li key={course.id}>{`Course ID: ${course.id}, Name: ${course.name}`}</li>
-          ))}
-        </ul>
+    <div style={{ backgroundColor: '#B35B8F', minHeight: '100vh', padding: '200px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <h2 style={{ color: 'black', fontWeight: 'bold', fontFamily: 'Times New Roman', fontSize: '24px', marginBottom: '3%', marginTop: '20', textAlign: 'center' }}>YOU ARE CURRENTLY TEACHING</h2>
+      <div style={{ border: '1px solid #ccc', padding: '0px', borderRadius: '8px', backgroundColor: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
+        {courses.map(course => (
+          <div key={course.id} style={{ border: '10px #B35B8F', padding: '10px', marginBottom: '10px', width: '200px', height: '200px' }}> {/* Adjust width and height as needed */}
+            <p style={{ color: 'black', fontWeight: 'bold', marginBottom: '5px' }}>Course ID: {course.id}</p>
+            <p style={{ color: 'black', fontWeight: 'bold', marginBottom: '5px' }}>Name: {course.name}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
-};
+        };
 
 export default DashPage;
