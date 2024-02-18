@@ -28,6 +28,8 @@ const Header = styled.h2`
 
 const CardBox = styled.div`
   background-color: #fff;
+  width: 250px;
+  height: 250px;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -38,14 +40,14 @@ const CardBox = styled.div`
 
 const Card = styled.div`
   margin: 10px;
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
   background-image: ffff;
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  padding: 0px;
   position: relative; 
-  border-radius: 8px;
+  border-radius: 0px;
   
 `;
 
