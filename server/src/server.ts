@@ -30,6 +30,18 @@ const params = {
 
   });
 
+  app.get('/api/courses/:courseId/assignments', async(req, res) =>{
+    const courseId: string = req.params.courseId;
+    try{
+      const response = await axios.get(`https://westminster.instructure.com/api/v1/courses/${courseId}/assignments`, { params, headers })
+      res.json(response.data)
+    }
+    catch(error){
+      console.error(error)
+  }
+  });
+
+
   app.listen(port, ()=> {
       console.log(`running on port: $(port)`)
     });

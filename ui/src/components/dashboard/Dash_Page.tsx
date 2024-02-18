@@ -1,10 +1,79 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
 interface Course {
   id: number;
   name: string;
 }
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-image: linear-gradient(to bottom right, #6c63ff, #ff636c);
+`;
+
+const Header = styled.h2`
+  color: black;
+  font-weight: bold;
+  font-family: 'Times New Roman';
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+  text-transform: uppercase;
+`;
+
+const CardBox = styled.div`
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+
+const Card = styled.div`
+  margin: 10px;
+  width: 250px;
+  height: 250px;
+  background-image: ffff;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  position: relative; 
+  border-radius: 8px;
+  
+`;
+
+const TopSection = styled.div`
+  height: 70%;
+  background-color: pink;
+  padding: 10px;
+`;
+
+const BottomSection = styled.div`
+  height: 30%;
+  background-color: #fff;
+  padding: 10px;
+`;
+
+const CourseId = styled.p`
+  color: black;
+  font-weight: bold;
+  margin-bottom: 5px;
+  text-align: center;
+`;
+
+const CourseName = styled.p`
+  color: black;
+  font-weight: bold;
+  margin-bottom: 5px;
+  text-align: center;
+`;
 
 const DashPage: React.FC = () => {
   const [courses, setCourses] = useState<Course[]>([]);
@@ -23,18 +92,21 @@ const DashPage: React.FC = () => {
   }, []);
 
   return (
-    <div style={{ backgroundColor: '#B35B8F', minHeight: '100vh', padding: '200px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <h2 style={{ color: 'black', fontWeight: 'bold', fontFamily: 'Times New Roman', fontSize: '24px', marginBottom: '3%', marginTop: '20', textAlign: 'center' }}>YOU ARE CURRENTLY TEACHING</h2>
-      <div style={{ border: '1px solid #ccc', padding: '0px', borderRadius: '8px', backgroundColor: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
+    <Container>
+      <Header>YOU ARE CURRENTLY TEACHING</Header>
+      <CardBox>
         {courses.map(course => (
-          <div key={course.id} style={{ border: '10px #B35B8F', padding: '10px', marginBottom: '10px', width: '200px', height: '200px' }}> {/* Adjust width and height as needed */}
-            <p style={{ color: 'black', fontWeight: 'bold', marginBottom: '5px' }}>Course ID: {course.id}</p>
-            <p style={{ color: 'black', fontWeight: 'bold', marginBottom: '5px' }}>Name: {course.name}</p>
-          </div>
+          <Card key={course.id}>
+            <TopSection />
+            <BottomSection>
+              <CourseId>{course.id}</CourseId>
+              <CourseName>{course.name}</CourseName>
+            </BottomSection>
+          </Card>
         ))}
-      </div>
-    </div>
+      </CardBox>
+    </Container>
   );
-        };
+};
 
 export default DashPage;
