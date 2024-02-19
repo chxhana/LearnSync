@@ -9,7 +9,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-image: linear-gradient(to bottom right, #6c63ff, #ff636c)
+  background-image: #ffff
 
 `;
 
@@ -159,7 +159,7 @@ const LoginPage: React.FC = () => {
         <Header>Learn Sync</Header>
       </HeaderContainer>
       <Container>
-        <LoginBox>
+        <LoginBox className= 'shadow'>
           <form onSubmit={handleSubmit}>
             <HeadingXXLarge>Login</HeadingXXLarge>
             {error && <ErrorText>{error}</ErrorText>}

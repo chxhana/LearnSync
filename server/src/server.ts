@@ -30,8 +30,9 @@ const params = {
 
   });
 
-  app.get('/api/courses/:courseId/assignments', async(req, res) =>{
-    const courseId: string = req.params.courseId;
+  app.get('/api/v1/courses/:course_id/assignments', async(req, res) =>{
+    console.log("I AM HERE");
+    const courseId: string = req.params.course_id;
     try{
       const response = await axios.get(`https://westminster.instructure.com/api/v1/courses/${courseId}/assignments`, { params, headers })
       res.json(response.data)

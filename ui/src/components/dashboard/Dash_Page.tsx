@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import 'bootstrap/dist/css/bootstrap.min.css';
+// import { Card } from 'react-bootstrap'; 
 
 interface Course {
   id: number;
@@ -94,20 +96,24 @@ const DashPage: React.FC = () => {
   }, []);
 
   return (
-    <Container>
-      <Header>YOU ARE CURRENTLY TEACHING</Header>
-      <CardBox>
+    <div className='container d-flex flex-column justify-content-start mt-5'>
+      <h3>You are currently teaching:</h3>
+      <hr/>
+      {/* <Header>YOU ARE CURRENTLY TEACHING</Header> */}
+      <div className='p-5 d-flex align-items-center justify-content-around flex-row'>
         {courses.map(course => (
-          <Card key={course.id}>
-            <TopSection />
-            <BottomSection>
+          <div key={course.id} className='card d-flex flex-row col-sm-3 flex-column text-decoration-none'>
+            <div className='bg-warning p-5' style={{minHeight:'200px'}}>
+
+            </div>
+            <div>
               <CourseId>{course.id}</CourseId>
               <CourseName>{course.name}</CourseName>
-            </BottomSection>
-          </Card>
+            </div>
+          </div>
         ))}
-      </CardBox>
-    </Container>
+      </div>
+    </div>
   );
 };
 
