@@ -30,17 +30,25 @@ const params = {
 
   });
 
-  app.get('/api/v1/courses/:course_id/assignments', async(req, res) =>{
-    console.log("I AM HERE");
-    const courseId: string = req.params.course_id;
-    try{
-      const response = await axios.get(`https://westminster.instructure.com/api/v1/courses/${courseId}/assignments`, { params, headers })
-      res.json(response.data)
+  app.get('/api/courses/:course_id/assignments', async(req, res) =>{
+    const courseId = 3471562;
+    const includeParams = ['submission', 'all_dates']; 
+    
+    const params = {
+        include: includeParams.join(',')
+    };
+
+    try {
+        const response = await axios.get(`https://westminster.instructure.com/api/v1/courses/${courseId}/assignments`, {
+            params,
+            headers
+        });
+        res.json(response.data);
+    } catch(error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
     }
-    catch(error){
-      console.error(error)
-  }
-  });
+});
 
 
   app.listen(port, ()=> {
