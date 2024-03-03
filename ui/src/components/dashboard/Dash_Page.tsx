@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from 'react-router-dom';
 // import { Card } from 'react-bootstrap'; 
 
 interface Course {
@@ -102,7 +103,7 @@ const DashPage: React.FC = () => {
       {/* <Header>YOU ARE CURRENTLY TEACHING</Header> */}
       <div className='p-5 d-flex align-items-center justify-content-around flex-row'>
         {courses.map(course => (
-          <div key={course.id} className='card d-flex flex-row col-sm-3 flex-column text-decoration-none'>
+            <Link key={course.id} to={`/home/${course.id}`} className='card d-flex flex-row col-sm-3 flex-column text-decoration-none'>
             <div className='bg-warning p-5' style={{minHeight:'200px'}}>
 
             </div>
@@ -110,7 +111,7 @@ const DashPage: React.FC = () => {
               <CourseId>{course.id}</CourseId>
               <CourseName>{course.name}</CourseName>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
@@ -118,3 +119,5 @@ const DashPage: React.FC = () => {
 };
 
 export default DashPage;
+
+

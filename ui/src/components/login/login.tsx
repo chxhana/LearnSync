@@ -109,11 +109,11 @@ const CreateAccountButton = styled.button`
 `;
 
 const Header = styled.h2`
-  font-family: 'Pacifico', cursive; /* Use Pacifico or any other cursive font you prefer */
+  font-family: 'Pacifico', cursive; 
   text-align: center;
-  color: #464648;
+  color: #212529;
   font-weight: bold;
-  font-size: 3.6rem; /* Adjust the font size as needed */
+  font-size: 3.6rem; 
 `;
 
 const LoginPage: React.FC = () => {

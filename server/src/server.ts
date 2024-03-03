@@ -30,13 +30,40 @@ const params = {
 
   });
 
+  app.get('/api/courses/:course_id/students', async (req, res) => {
+    const courseId = req.params.course_id;
+
+    try {
+        const response = await axios.get(`https://westminster.instructure.com/api/v1/courses/${courseId}/students`, {
+            params,
+            headers
+        });
+        res.json(response.data);
+    } catch(error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+  app.get('/api/courses/:course_id/analytics/student_summaries', async(req, res) =>{
+    const courseId = req.params.course_id;
+    
+    
+
+    try {
+        const response = await axios.get(`https://westminster.instructure.com/api/v1/courses/${courseId}/analytics/student_summaries`, {
+            params,
+            headers
+        });
+        res.json(response.data);
+    } catch(error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
   app.get('/api/courses/:course_id/assignments', async(req, res) =>{
     const courseId = 3471562;
-    const includeParams = ['submission', 'all_dates']; 
-    
-    const params = {
-        include: includeParams.join(',')
-    };
 
     try {
         const response = await axios.get(`https://westminster.instructure.com/api/v1/courses/${courseId}/assignments`, {
@@ -49,6 +76,7 @@ const params = {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
 
 
   app.listen(port, ()=> {
