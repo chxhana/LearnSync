@@ -84,12 +84,13 @@ const NavBar: React.FC = () => {
     // For now, let's just console log
     console.log("Logging out...");
   };
+  const link = "/student/" + id;
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark" style={{ backgroundColor: '#48cae4' }}>
       <div className="container">
         <Header className="navbar-brand">Learn Sync</Header>
-        <StyledLink to="/student" className="navbar-brand">Students</StyledLink>
+        <StyledLink to={link} className="navbar-brand">Students</StyledLink>
         <StyledLink to="/dashboard" className="navbar-brand">Back to Courses</StyledLink>
         <div className="position-relative">
           <StyledFontAwesomeIcon icon={faUser} className="navbar-brand" onClick={() => setIsDropdownOpen(!isDropdownOpen)} />

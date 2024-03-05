@@ -111,7 +111,7 @@ const getColor = (index:number) => colors[index % colors.length];
               </div>
               <div>
                 <CourseName>{assignment.name}</CourseName>
-                <p><strong>Due Date: {new Date(assignment.due_at).toLocaleDateString()}</strong></p>
+                <p className = 'text-center'><strong>{new Date(assignment.due_at).toLocaleDateString()}</strong></p>
               </div>
             </Link>
             {index % 3 === 2 && <div key={`row-${index}`} className="w-100"></div>} 

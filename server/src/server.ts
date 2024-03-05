@@ -1,6 +1,7 @@
 import axios from 'axios';
 import express from 'express';
 import cors from 'cors';
+
 const ACCESS_TOKEN = '349~4QtJhiVlrX9sUAQdQJcSFECg3bscur66PT32cetc3NJFJ3xs3aqMvyz6xH4rf6yM';
 
 const app = express();
@@ -42,6 +43,32 @@ const params = {
     } catch(error) {
         console.error(error);
         res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+app.get('/api/v1/users/:id', (req, res) => {
+    try {
+        const userId = req.params.id;
+
+        
+        const userDetails = {
+            id: userId,
+            
+            permissions: {
+                can_update_name: true,
+                can_update_avatar: false,
+                limit_parent_app_web_access: false
+            },
+           
+            avatar_url: `https://example.com/avatars/${userId}.jpg`
+        };
+
+        
+        return res.json(userDetails);
+    } catch (error) {
+       
+        console.error('Error:', error);
+        return res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
