@@ -74,16 +74,14 @@ const Student: React.FC = () => {
     <div className="container-fluid">
       <NavBar /> 
       
-      <div className="container mt-5">
+      <div className="container mt-5 bg-primary">
         <div className="row">
           <div className="col">
-            {courses.map(course => (
-              <header key={course.id} className="text-center"> 
+            
                 <h2 className="font-weight-bold">Students</h2>
-              </header>
-            ))}
-          </div>
+             
         </div>
+      </div>
       </div>
 
       <div className='p-5 d-flex align-items-left justify-content-around flex-row flex-wrap'>
