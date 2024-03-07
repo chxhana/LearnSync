@@ -30,7 +30,7 @@ const Student: React.FC = () => {
   useEffect(() => {
     const getStudents = async () => {
       try {
-        const studentData = await axios.get(`http://localhost:3001/api/courses/3471562/students`);
+        const studentData = await axios.get(`http://localhost:3001/api/courses/${id}/students`);
         setStudents(studentData.data);
       } catch (error: any) {
         console.error("Error fetching students:", error.message);

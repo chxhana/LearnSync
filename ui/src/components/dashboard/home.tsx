@@ -106,7 +106,7 @@ const getColor = (index:number) => colors[index % colors.length];
       <div className='p-5 d-flex align-items-left justify-content-around flex-row flex-wrap'>
         {assignments.map((assignment, index: number) => (
           <>
-            <Link key={assignment.id} to={`/home/${assignment.id}`} className='card d-flex flex-row col-sm-4 flex-column text-decoration-none mb-3' style={{ width: '350px', height: '250px' }}>
+            <Link key={assignment.id} to={`${assignment.id}`} className='card d-flex flex-row col-sm-4 flex-column text-decoration-none mb-3' style={{ width: '350px', height: '250px' }}>
               <div className= 'p-5' style={{minHeight:'200px',  backgroundColor: getColor(index)}}>
               </div>
               <div>
