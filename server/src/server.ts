@@ -2,7 +2,7 @@ import axios from 'axios';
 import express from 'express';
 import cors from 'cors';
 
-const ACCESS_TOKEN = '349~4QtJhiVlrX9sUAQdQJcSFECg3bscur66PT32cetc3NJFJ3xs3aqMvyz6xH4rf6yM';
+const ACCESS_TOKEN = 'your access token';
 
 const app = express();
 const port = 3001;
