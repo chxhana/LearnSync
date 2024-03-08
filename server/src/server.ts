@@ -128,6 +128,22 @@ app.get('/api/courses/:course_id/assignments/:id', async(req, res) =>{
     }
 });
 
+app.get('/api/users/:user_id/courses/:course_id/assignments', async(req, res) =>{
+    const courseId = req.params.course_id;
+    const studentId = req.params.user_id;
+
+    try {
+        const response = await axios.get(`https://westminster.instructure.com/api/v1/users/${studentId}courses/${courseId}/assignments`, {
+            params,
+            headers
+        });
+        res.json(response.data);
+    } catch(error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
   app.listen(port, ()=> {
       console.log(`running on port: $(port)`)
     });

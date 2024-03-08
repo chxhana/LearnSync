@@ -46,7 +46,7 @@ const Student: React.FC = () => {
         <div className="container mt-5">
           <div className="row">
             <div className="col">
-              <h2 className="font-weight-bold text-center">Students</h2>
+              <h2>Students</h2>
             </div>
           </div>
         </div>
@@ -54,7 +54,7 @@ const Student: React.FC = () => {
         <div className='p-5 d-flex align-items-left justify-content-around flex-row flex-wrap'>
           {students.map((student, index) => (
             <>
-              <Link to={`/Student/${student.id}`} className='card d-flex flex-row col-sm-4 flex-column text-decoration-none mb-3' style={{ width: '350px', height: '250px' }}>
+              <Link key={student.id} to={`${student.id}`} className='card d-flex flex-row col-sm-4 flex-column text-decoration-none mb-3' style={{ width: '350px', height: '250px' }}>
                 <div className='bg-warning p-5' style={{ minHeight: '200px' }}>
                 </div>
                 <div>

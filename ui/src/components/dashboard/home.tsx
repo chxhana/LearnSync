@@ -82,7 +82,6 @@ const Home: React.FC = () => {
     getAssignments();
   }, [id]);
 
-
 const getColor = (index:number) => colors[index % colors.length];
 
 

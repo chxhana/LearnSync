@@ -35,6 +35,8 @@ const AssignmentDetails: React.FC = () => {
     getAssignment();
   }, [assignmentId, id]);
 
+  console.log(assignment)
+
   return (
     <div className="row">
       <div className="container-fluid">
