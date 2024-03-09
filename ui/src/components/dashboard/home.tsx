@@ -89,8 +89,7 @@ const getColor = (index:number) => colors[index % colors.length];
     <div className="row">
     <div className="container-fluid">
       <NavBar /> 
-      
-      <div className="container mt-5">
+      <div className="container mt-5 bg-primary bg-5">
         <div className="row">
           <div className="col">
             {courses.map(course => (

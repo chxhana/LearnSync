@@ -142,7 +142,7 @@ app.get('/api/users/:user_id/courses/:course_id/assignments', async(req, res) =>
         console.error(error);
         res.status(500).json({ error: 'Internal server error' });
     }
-});
+}); //not working
 
   app.listen(port, ()=> {
       console.log(`running on port: $(port)`)
