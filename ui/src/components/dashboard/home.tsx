@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import NavBar from './navBar';
+import Chart from 'chart.js/auto';
+
 
 
 
@@ -89,7 +91,7 @@ const getColor = (index:number) => colors[index % colors.length];
     <div className="row">
     <div className="container-fluid">
       <NavBar /> 
-      <div className="container mt-5 bg-primary bg-5">
+      <div className="container mt-5">
         <div className="row">
           <div className="col">
             {courses.map(course => (
