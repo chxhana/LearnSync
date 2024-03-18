@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import CreateAccountPage from './CreateAccountPage';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -196,7 +195,6 @@ const LoginPage: React.FC = () => {
             <Divider />
           </form>
         </LoginBox>
-        {showCreateAccount && <CreateAccountPage onCancel={handleCreateAccountClick} />}
       </Container>
     </div>
   );

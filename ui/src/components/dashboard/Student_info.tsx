@@ -3,18 +3,25 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
 import NavBar from './navBar';
-import { useRadioGroup } from '@mui/material';
+import PieChartComponent from '../common/piechart';
+import RechartsBarGraph from '../common/bargraph';
 
 const CourseName = styled.p`
   color: black;
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   text-align: center;
   font-size: 2rem;
+`;
+
+const H2 = styled.p`
+  color: black;
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-align: center;
+  font-size: 1.2rem;
 `;
 
 interface Student {
@@ -24,68 +31,35 @@ interface Student {
 
 interface Grade {
   id: string;
+  name: string;
   user_id: string;
+  assignment_id: string;
   assignment_name: string;
-  entered_score: string;
+  user_name: string;
+  current_grade: string;
+  score: number;
 }
 
-    const Student_Info: React.FC = () => {
-    const { id, studentId } = useParams<{ id: string, studentId: string }>();
-    const [student, setStudent] = useState<Student[]>([]);
-    const [grades, setGrades] = useState<Grade[]>([]);
-  
-    useEffect(() => {
-      const getStudent = async () => {
-        try {
-          const studentData = await axios.get(`http://localhost:3001/api/courses/${id}/students`);
-          setStudent(studentData.data);
-        } catch (error: any) {
-          console.error("Error fetching students:", error.message);
-        }
-      };
-      getStudent();
-    }, [id]);
-  
-    useEffect(() => {
-      const getGrades = async () => {
-        try {
-          const response = await axios.get(`http://localhost:3001/api/courses/${id}/gradebook_history/feed`);
-          setGrades(response.data);
-        } catch (error: any) {
-          console.error("Error fetching grades:", error.message);
-        }
-      };
-      getGrades();
-    }, [studentId]);
+const Student_Info: React.FC = () => {
+  const { id, studentId } = useParams<{ id: string, studentId: string }>();
+  const [student, setStudent] = useState<Student[]>([]);
+  const [grade, setGrade] = useState<Grade[]>([]);
+  let hasRenderedPieChart = false;
+  let hasRenderedBarGraph = false;
 
-  console.log(grades);
-  interface AssignmentSummary {
-    score: number;
-    assignmentName: string;
-    userId: number;
-  }
-
-  const jsonData: any[] = []; 
-  axios.get('http://localhost:3001/api/courses/3471562/gradebook_history/feed')
-  .then(response => {
-    const responseData = response.data;
-    //console.log(responseData);
-  })
-  .catch(error => {
-    console.error("Error fetching data:", error.message);
-  });
-  
-  
-  const assignmentSummaries: AssignmentSummary[] = jsonData
-  .filter(item => item.user_id === studentId) 
-  .map(item => ({
-    score: item.score,
-    assignmentName: item.assignment_name,
-    userId: item.user_id,
-  }));
-  console.log(assignmentSummaries);
-
- 
+  useEffect(() => {
+    const getStudent = async () => {
+      try {
+        const studentData = await axios.get(`http://localhost:3001/api/courses/${id}/students`);
+        const gradeData = await axios.get(`http://localhost:3001/api/courses/${id}/gradebook_history/feed`);
+        setStudent(studentData.data);
+        setGrade(gradeData.data);
+      } catch (error: any) {
+        console.error("Error fetching students:", error.message);
+      }
+    };
+    getStudent();
+  }, [id]);
 
   return (
     <div className="row">
@@ -101,6 +75,45 @@ interface Grade {
                       <CourseName>{std.name}</CourseName>
                     </div>
                   );
+                }
+                return null;
+              })}
+
+              {grade.map(g => {
+                if (g.user_id.toString() === studentId) {
+                  if (!hasRenderedPieChart && g.assignment_name === "Roll Call Attendance") {
+                    hasRenderedPieChart = true;
+                    return (
+                      <div key={g.assignment_name + g.user_id}>
+                        <H2>Attendance</H2>
+                        <PieChartComponent 
+                          data={[
+                            { name: 'Present', value: parseInt(g.current_grade), fill: '#e0aaff' }, 
+                            { name: 'Absent', value: 100 - parseInt(g.current_grade), fill: '#ffc8dd' }
+                          ]} 
+                        />
+                        <br />
+                      </div>
+                    );
+                  } else if (!hasRenderedBarGraph && g.assignment_name.includes("Homework")) {
+                    hasRenderedBarGraph = true;
+                    return (
+                      <div key={g.assignment_name + g.user_id}>
+                        <H2>Homework</H2>
+                        <RechartsBarGraph data={[{ name: g.assignment_name, value: g.score }]} />
+                        <br />
+                      </div>
+                    );
+                  } else if (!hasRenderedBarGraph && g.assignment_name.includes("Quiz")) {
+                    hasRenderedBarGraph = true;
+                    return (
+                      <div key={g.assignment_name + g.user_id}>
+                        <H2>Assignment Trends</H2>
+                        <RechartsBarGraph data={[{ name: g.assignment_name, value: g.score }]} />
+                        <br />
+                      </div>
+                    );
+                  }
                 }
                 return null;
               })}
