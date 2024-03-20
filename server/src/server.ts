@@ -52,24 +52,6 @@ app.use(cors())
 });
 
 
-
-//stats for students    
-
-  app.get('/api/courses/:course_id/analytics/student_summaries', async(req, res) =>{
-    const courseId = req.params.course_id;
-    
-    try {
-        const response = await axios.get(`https://westminster.instructure.com/api/v1/courses/${courseId}/analytics/student_summaries`, {
-            
-            headers
-        });
-        res.json(response.data);
-    } catch(error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-});
-
 //shows all assignments for the course
 
   app.get('/api/courses/:course_id/assignments', async(req, res) =>{
@@ -87,23 +69,6 @@ app.use(cors())
     }
 });
 
-//grades
-
-app.get('/api/audit/grade_change/assignments/:course_id', async (req, res) => {
-    const courseId = req.params.course_id;
-    //const assignmentId = req.params.assignment_id;
-
-
-    try {
-        const response = await axios.get(`https://westminster.instructure.com/api/v1/audit/grade_change/assignments/${courseId}`, {
-            headers,
-        });
-        res.json(response.data);
-    } catch(error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-});
 
 // grades
 app.get('/api/courses/:course_id/students/submissions', async (req, res) => {
@@ -150,7 +115,23 @@ app.get('/api/courses/:course_id/quizzes', async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
-//assignment name?
+//stats summaries 
+app.get('/api/courses/:course_id/analytics/assignments', async(req, res) =>{
+    const courseId = req.params.course_id;
+    
+    try {
+        const response = await axios.get(`https://westminster.instructure.com/api/v1/courses/${courseId}/analytics/assignments`, {
+            
+            headers
+        });
+        res.json(response.data);
+    } catch(error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+//assignment_id
 app.get('/api/courses/:course_id/assignments/:id', async(req, res) =>{
     const courseId = req.params.course_id;
     const assignmentId = req.params.id;

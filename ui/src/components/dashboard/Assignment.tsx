@@ -18,15 +18,24 @@ interface Assignment {
     name: string;
 }
 
+interface Summary{
+  id: number;
+  max_score: number
+  min_score: number;
+  median: Float32Array;
+}
+
 const AssignmentDetails: React.FC = () => {
   const { assignmentId, id } = useParams<{ assignmentId: string, id: string }>();
   const [assignment, setAssignment] = useState<Assignment | null>(null);
+  const [summary, setSummary] = useState<Summary[]>([])
 
   useEffect(() => {
     const getAssignment = async () => {
       try {
         const response = await axios.get(`http://localhost:3001/api/courses/${id}/assignments/${assignmentId}`);
         setAssignment(response.data);
+        const stats = await axios.get(`http://localhost:3001/api/courses/${id}/analytics/assignments`);
       } catch (error: any) {
         console.error((error as Error).message);
       }
@@ -47,6 +56,17 @@ const AssignmentDetails: React.FC = () => {
             {assignment && (
                   <CourseName>{assignment.name}</CourseName>
             )}
+
+        {summary.map(s => {
+          if (s.id.toString() === assignmentId) {
+            return (
+              <div key={s.id}>
+                {s.max_score}
+              </div>
+            );
+          }
+          return null;
+        })}
             </div>
           </div>
         </div>
