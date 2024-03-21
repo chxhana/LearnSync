@@ -78,21 +78,22 @@ const Student_Info: React.FC = () => {
 
       grade.forEach(g => {
         if (g.user_id.toString() === studentId) {
-          if (g.assignment_name.includes("Homework")) {
-            if (aggregatedHomeworkScores[g.assignment_name]) {
-              aggregatedHomeworkScores[g.assignment_name] += g.score;
-            } else {
-              aggregatedHomeworkScores[g.assignment_name] = g.score;
-            }
-          } else if (g.assignment_name.includes("Quiz")) {
-            if (aggregatedQuizScores[g.assignment_name]) {
-              aggregatedQuizScores[g.assignment_name] += g.score;
-            } else {
-              aggregatedQuizScores[g.assignment_name] = g.score;
-            }
-          }
+        if (g.assignment_name.includes("Homework")) {
+        if (aggregatedHomeworkScores[g.assignment_name]) {
+        aggregatedHomeworkScores[g.assignment_name] = g.score;
+        } else {
+        aggregatedHomeworkScores[g.assignment_name] = g.score;
         }
-      });
+        } else if (g.assignment_name.includes("Quiz")) {
+        if (aggregatedQuizScores[g.assignment_name]) {
+        aggregatedQuizScores[g.assignment_name] = g.score;
+        } else {
+        aggregatedQuizScores[g.assignment_name] = g.score;
+        }
+        }
+        }
+        });
+       
 
       const homeworkData: BarChartData[] = Object.keys(aggregatedHomeworkScores).map(key => ({
         name: key,
@@ -110,9 +111,7 @@ const Student_Info: React.FC = () => {
 
     aggregateScores();
   }, [grade, studentId]);
-
-  
-  
+ 
 
   return (
     <div className="row">

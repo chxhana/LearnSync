@@ -34,8 +34,9 @@ const AssignmentDetails: React.FC = () => {
     const getAssignment = async () => {
       try {
         const response = await axios.get(`http://localhost:3001/api/courses/${id}/assignments/${assignmentId}`);
-        setAssignment(response.data);
         const stats = await axios.get(`http://localhost:3001/api/courses/${id}/analytics/assignments`);
+        setAssignment(response.data);
+        //setSummary(stats.data);
       } catch (error: any) {
         console.error((error as Error).message);
       }
