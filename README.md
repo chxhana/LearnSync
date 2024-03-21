@@ -22,16 +22,16 @@ To get started with LearnSync, follow these steps:
 
 1. Clone the repository:
 
-git clone <repository_url>
+  git clone <repository_url>
 
 
 
 2. Install dependencies for both server and client:
 
-cd learnsyc-server
-npm install
-cd ../learnsync-client
-npm install
+  cd learnsyc-server
+  npm install
+  cd ../learnsync-client
+  npm install
 
 
 
@@ -40,15 +40,15 @@ npm install
 4. Configure the server to use the Canvas API by providing the access token and domain.
 
 5. Start the server:
-
-cd learnsyc-server
-npm start
+  
+  cd learnsyc-server
+  npm start
 
 
 6. Start the client:
 
-cd learnsyc-client
-npm start
+  cd learnsyc-client
+  npm start
 
 
 
