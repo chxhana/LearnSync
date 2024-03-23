@@ -111,7 +111,7 @@ const Student_Info: React.FC = () => {
 
     aggregateScores();
   }, [grade, studentId]);
- 
+  
 
   return (
     <div className="row">

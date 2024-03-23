@@ -13,22 +13,29 @@ const CourseName = styled.p`
 `;
 
 interface Assignment {
-    id: number;
+    id: string;
     due_at: Date;
     name: string;
 }
 
 interface Summary{
-  id: number;
+  id: string;
   max_score: number
   min_score: number;
   median: Float32Array;
 }
 
+
+
 const AssignmentDetails: React.FC = () => {
   const { assignmentId, id } = useParams<{ assignmentId: string, id: string }>();
   const [assignment, setAssignment] = useState<Assignment | null>(null);
   const [summary, setSummary] = useState<Summary[]>([])
+  const [dictionary, setDictionary] = useState<{ [key: number]: string }>({
+    9945831: 'Taeden Anderson',
+    12113467: 'Nathan Hutton',
+    12266736: 'Arogya Upadhyaya',
+  });
 
   useEffect(() => {
     const getAssignment = async () => {
@@ -36,7 +43,7 @@ const AssignmentDetails: React.FC = () => {
         const response = await axios.get(`http://localhost:3001/api/courses/${id}/assignments/${assignmentId}`);
         const stats = await axios.get(`http://localhost:3001/api/courses/${id}/analytics/assignments`);
         setAssignment(response.data);
-        //setSummary(stats.data);
+        setSummary(stats.data);
       } catch (error: any) {
         console.error((error as Error).message);
       }
@@ -59,7 +66,7 @@ const AssignmentDetails: React.FC = () => {
             )}
 
         {summary.map(s => {
-          if (s.id.toString() === assignmentId) {
+          if (s.id === assignmentId) {
             return (
               <div key={s.id}>
                 {s.max_score}
