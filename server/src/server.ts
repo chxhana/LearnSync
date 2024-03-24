@@ -148,7 +148,7 @@ app.get('/api/courses/:course_id/analytics/student_summaries', async(req, res) =
 });
 
 //quiz stats
-app.get('/api/v1/courses/:course_id/quizzes/:quiz_id/statistics', async(req, res) =>{
+app.get('/api/courses/:course_id/quizzes/:quiz_id/statistics', async(req, res) =>{
     const assignment_id = req.params.course_id;
     
     try {
@@ -164,12 +164,11 @@ app.get('/api/v1/courses/:course_id/quizzes/:quiz_id/statistics', async(req, res
 });
 
 
-// missing assignments -- doesnot work? 
-app.get('/api/v1/courses/:course_id/assignments/:assignment_id/submissions', async(req,res) =>{
+// missing submissions -- doesnt work? https://canvas.instructure.com/doc/api/submissions.html#method.submissions_api.index
+app.get('/api/courses/:course_id/students/submissions', async(req,res) =>{
     const course_id = req.params.course_id;
-    const assignment_id = req.params.assignment_id;
     try{
-        const response = await axios.get(`https://westminster.instructure.com/api/v1/courses/${course_id}/assignments/${assignment_id}/submissions`, {
+        const response = await axios.get(`https://westminster.instructure.com/api/v1/courses/${course_id}/students/submissions`, {
         headers
     });
         res.json(response.data);

@@ -112,7 +112,7 @@ const Student_Info: React.FC = () => {
     aggregateScores();
   }, [grade, studentId]);
   
-
+// quiz data is not working
   return (
     <div className="row">
       <div className="container-fluid">
@@ -174,7 +174,7 @@ const Student_Info: React.FC = () => {
                   return null;
                 })}
               </div>
-
+              
               <div className="col">
                 {grade.map(g => {
                   if (g.user_id.toString() === studentId) {

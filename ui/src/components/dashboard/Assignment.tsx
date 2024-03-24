@@ -13,24 +13,24 @@ const CourseName = styled.p`
 `;
 
 interface Assignment {
-    id: string;
-    due_at: Date;
-    name: string;
-}
-
-interface Summary{
   id: string;
-  max_score: number
-  min_score: number;
-  median: Float32Array;
+  due_at: Date;
+  name: string;
 }
 
-
+interface Summary {
+  id: string;
+  max_score: number;
+  min_score: number;
+  median: number;
+  title: string;
+}
 
 const AssignmentDetails: React.FC = () => {
   const { assignmentId, id } = useParams<{ assignmentId: string, id: string }>();
-  const [assignment, setAssignment] = useState<Assignment | null>(null);
-  const [summary, setSummary] = useState<Summary[]>([])
+  const [assignment, setAssignment] = useState<Assignment[]>([]);
+  const [summary, setSummary] = useState<Summary[]>([]);
+  const [summaryScores, setSummaryScores] = useState<any[]>([]);
   const [dictionary, setDictionary] = useState<{ [key: number]: string }>({
     9945831: 'Taeden Anderson',
     12113467: 'Nathan Hutton',
@@ -52,7 +52,33 @@ const AssignmentDetails: React.FC = () => {
     getAssignment();
   }, [assignmentId, id]);
 
-  console.log(assignment)
+//summary data 
+useEffect(() => {
+  const aggregateSummaryData = () => {
+    const aggregatedData: any[] = [];
+
+    summary.forEach((sum) => {
+      if (sum.id === assignmentId) {
+        aggregatedData.push({
+          pointsPossible: sum.max_score,
+          maxScore: sum.max_score,
+          minScore: sum.min_score,
+          median: sum.median,
+        });
+      }
+    });
+
+    setSummaryScores(aggregatedData);
+    console.log(aggregatedData); 
+  };
+
+  aggregateSummaryData();
+}, [summary, assignmentId]);
+
+
+//doesnt display title of assignment
+//making a  bargraph for low,high, median and total_possible
+//display list of users that have not submitted hw using dictionary 
 
   return (
     <div className="row">
@@ -61,20 +87,16 @@ const AssignmentDetails: React.FC = () => {
         <div className="container mt-5">
           <div className="row">
             <div className="col">
-            {assignment && (
-                  <CourseName>{assignment.name}</CourseName>
-            )}
-
-        {summary.map(s => {
-          if (s.id === assignmentId) {
-            return (
-              <div key={s.id}>
-                {s.max_score}
-              </div>
-            );
-          }
-          return null;
-        })}
+              {summary.map((sum) => {
+                if (sum.id === assignmentId) {
+                  return (
+                    <div key={sum.id}>
+                      <CourseName>{sum.title}</CourseName>
+                    </div>
+                  );
+                }
+                return null;
+              })}
             </div>
           </div>
         </div>
