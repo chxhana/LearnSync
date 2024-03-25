@@ -91,7 +91,7 @@ const NavBar: React.FC = () => {
       <div className="container">
         <Header className="navbar-brand">Learn Sync</Header>
         <StyledLink to={link} className="navbar-brand">Students</StyledLink>
-        <StyledLink to="/dashboard" className="navbar-brand">Back to Courses</StyledLink>
+        <StyledLink to="/dashboard" className="navbar-brand">Courses</StyledLink>
         <div className="position-relative">
           <StyledFontAwesomeIcon icon={faUser} className="navbar-brand" onClick={() => setIsDropdownOpen(!isDropdownOpen)} />
           <DropdownMenu isOpen={isDropdownOpen}>

@@ -179,11 +179,11 @@ app.get('/api/courses/:course_id/students/submissions', async(req,res) =>{
 });
 
 //quiz statistics
-app.get('/api/users/:course_id/quizzes/:quiz_id/statistics', async(req,res) =>{
+app.get('/api/courses/:course_id/quizzes/:quiz_id/statistics', async(req,res) =>{
     const course_id = req.params.course_id;
     const quiz_id = req.params.quiz_id;
     try{
-        const response = await axios.get(`https://westminster.instructure.com/api/v1/users/${course_id}/quizzes/${quiz_id}/statistics`, {
+        const response = await axios.get(`https://westminster.instructure.com/api/v1/courses/${course_id}/quizzes/${quiz_id}/statistics`, {
         headers
     });
         res.json(response.data);
