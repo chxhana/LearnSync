@@ -38,6 +38,7 @@ interface Grade {
   user_name: string;
   current_grade: string;
   score: number;
+  posted_at: Date;
 }
 
 interface BarChartData {
@@ -86,7 +87,7 @@ const Student_Info: React.FC = () => {
         }
         } else if (g.assignment_name.includes("Quiz")) {
         if (aggregatedQuizScores[g.assignment_name]) {
-        aggregatedQuizScores[g.assignment_name] = g.score;
+        aggregatedQuizScores[g.assignment_name] += g.score;
         } else {
         aggregatedQuizScores[g.assignment_name] = g.score;
         }
@@ -98,6 +99,7 @@ const Student_Info: React.FC = () => {
       const homeworkData: BarChartData[] = Object.keys(aggregatedHomeworkScores).map(key => ({
         name: key,
         value: aggregatedHomeworkScores[key]
+       
       }));
 
       const quizData: BarChartData[] = Object.keys(aggregatedQuizScores).map(key => ({

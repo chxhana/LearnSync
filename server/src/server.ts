@@ -220,7 +220,7 @@ app.get('/api/courses/:course_id/gradebook_history/feed', async(req, res) =>{
     try {
         const response = await axios.get(`https://westminster.instructure.com/api/v1/courses/${courseId}/gradebook_history/feed`, {
             params :{
-                per_page: 1000,
+                per_page: 2000,
                 grouped: true
             },
             headers
