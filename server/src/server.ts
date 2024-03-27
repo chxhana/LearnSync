@@ -70,12 +70,13 @@ app.use(cors())
 });
 
 
-// grades
-app.get('/api/courses/:course_id/students/submissions', async (req, res) => {
+// grades -- assignments -- not working -- not server error -- https://canvas.instructure.com/doc/api/submissions.html#method.submissions_api.index
+app.get('/api/courses/:course_id/assignments/:assignment_id/submissions', async (req, res) => {
     const courseId = req.params.course_id;
+    const assignment_id = req.params.assignment_id;
 
     try {
-        const response = await axios.get(`https://westminster.instructure.com/api/v1/courses/${courseId}/students/submissions`, {
+        const response = await axios.get(`https://westminster.instructure.com/api/v1/courses/${courseId}/assignments/${assignment_id}/submissions`, {
             headers,
         
         });
@@ -164,20 +165,6 @@ app.get('/api/courses/:course_id/quizzes/:quiz_id/statistics', async(req, res) =
 });
 
 
-// missing submissions -- doesnt work? https://canvas.instructure.com/doc/api/submissions.html#method.submissions_api.index
-app.get('/api/courses/:course_id/students/submissions', async(req,res) =>{
-    const course_id = req.params.course_id;
-    try{
-        const response = await axios.get(`https://westminster.instructure.com/api/v1/courses/${course_id}/students/submissions`, {
-        headers
-    });
-        res.json(response.data);
-    } catch(error){
-        console.log(error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-});
-
 //quiz statistics
 app.get('/api/courses/:course_id/quizzes/:quiz_id/statistics', async(req,res) =>{
     const course_id = req.params.course_id;
@@ -194,7 +181,7 @@ app.get('/api/courses/:course_id/quizzes/:quiz_id/statistics', async(req,res) =>
 });
 
 
-//assignment_id
+//assignment_id -- get missing assignments
 app.get('/api/courses/:course_id/assignments/:id', async(req, res) =>{
     const courseId = req.params.course_id;
     const assignmentId = req.params.id;

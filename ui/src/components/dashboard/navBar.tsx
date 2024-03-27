@@ -79,9 +79,6 @@ const NavBar: React.FC = () => {
   }, []);
   
   const handleLogout = () => {
-    // Perform logout actions here, such as clearing tokens or user data
-    // Redirect to the login page after logout
-    // For now, let's just console log
     console.log("Logging out...");
   };
   const link = "/student/" + id;
