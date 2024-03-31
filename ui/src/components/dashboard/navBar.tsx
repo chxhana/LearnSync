@@ -57,11 +57,12 @@ cursor: pointer;
 
 interface Course {
   id: number;
+  student_id: number
   name: string;
 }
 
 const NavBar: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const {id} = useParams<{ id: string}>();
   const [courses, setCourses] = useState<Course[]>([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -82,12 +83,14 @@ const NavBar: React.FC = () => {
     console.log("Logging out...");
   };
   const link = "/student/" + id;
+  const link2 = "/home/" + id
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark" style={{ backgroundColor: '#48cae4' }}>
       <div className="container">
         <Header className="navbar-brand">Learn Sync</Header>
         <StyledLink to={link} className="navbar-brand">Students</StyledLink>
+        <StyledLink to={link2} className="navbar-brand">Assignments</StyledLink>
         <StyledLink to="/dashboard" className="navbar-brand">Courses</StyledLink>
         <div className="position-relative">
           <StyledFontAwesomeIcon icon={faUser} className="navbar-brand" onClick={() => setIsDropdownOpen(!isDropdownOpen)} />
