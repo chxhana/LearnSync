@@ -15,12 +15,11 @@ const RechartsBarGraph: React.FC<Props> = ({ data }) => {
     <div>
       <ResponsiveContainer width="100%" height={200}>
         <BarChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="value" fill="#8884d8" />
+          <Bar dataKey="value" fill="#8884d8" barSize={100} />
         </BarChart>
       </ResponsiveContainer>
     </div>

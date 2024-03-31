@@ -23,6 +23,8 @@ const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
   }
 `;
 
+const colors = ['#ff595e', '#ffca3a', '#8ac926', '#1982c4', '#6a4c93'];
+
 const Student: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [students, setStudents] = useState<any[]>([]); 
@@ -38,6 +40,8 @@ const Student: React.FC = () => {
     };
     getStudents();
   }, [id]);
+
+  const getColor = (index:number) => colors[index % colors.length];
 
   return (
     <div className="row">
@@ -55,7 +59,7 @@ const Student: React.FC = () => {
           {students.map((student, index) => (
             <>
               <Link key={student.id} to={`${student.id}`} className='card d-flex flex-row col-sm-4 flex-column text-decoration-none mb-3' style={{ width: '350px', height: '250px' }}>
-                <div className='bg-warning p-5' style={{ minHeight: '200px' }}>
+                <div className= 'p-5' style={{minHeight:'200px',  backgroundColor: getColor(index)}}>
                 </div>
                 <div>
                   <CourseName>{student.name}</CourseName>

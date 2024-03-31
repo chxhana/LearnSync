@@ -4,7 +4,7 @@ import { PieChart, Pie, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 interface PieChartData {
   name: string;
   value: number;
-  fill: string; // Add a 'fill' property to specify the color for each section
+  fill: string; 
 }
 
 interface Props {

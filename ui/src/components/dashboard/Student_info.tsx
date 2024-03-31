@@ -38,6 +38,7 @@ interface Grade {
   user_name: string;
   current_grade: string;
   score: number;
+  posted_at: Date;
 }
 
 interface BarChartData {
@@ -70,6 +71,7 @@ const Student_Info: React.FC = () => {
     getStudent();
   }, [id]);
 
+  
   useEffect(() => {
     const aggregateScores = () => {
       const aggregatedHomeworkScores: { [key: string]: number } = {};
@@ -77,25 +79,27 @@ const Student_Info: React.FC = () => {
 
       grade.forEach(g => {
         if (g.user_id.toString() === studentId) {
-          if (g.assignment_name.includes("Homework")) {
-            if (aggregatedHomeworkScores[g.assignment_name]) {
-              aggregatedHomeworkScores[g.assignment_name] += g.score;
-            } else {
-              aggregatedHomeworkScores[g.assignment_name] = g.score;
-            }
-          } else if (g.assignment_name.includes("Quiz")) {
-            if (aggregatedQuizScores[g.assignment_name]) {
-              aggregatedQuizScores[g.assignment_name] += g.score;
-            } else {
-              aggregatedQuizScores[g.assignment_name] = g.score;
-            }
-          }
+        if (g.assignment_name.includes("Homework")) {
+        if (aggregatedHomeworkScores[g.assignment_name]) {
+        aggregatedHomeworkScores[g.assignment_name] = g.score;
+        } else {
+        aggregatedHomeworkScores[g.assignment_name] = g.score;
         }
-      });
+        } else if (g.assignment_name.includes("Quiz")) {
+        if (aggregatedQuizScores[g.assignment_name]) {
+        aggregatedQuizScores[g.assignment_name] += g.score;
+        } else {
+        aggregatedQuizScores[g.assignment_name] = g.score;
+        }
+        }
+        }
+        });
+       
 
       const homeworkData: BarChartData[] = Object.keys(aggregatedHomeworkScores).map(key => ({
         name: key,
         value: aggregatedHomeworkScores[key]
+       
       }));
 
       const quizData: BarChartData[] = Object.keys(aggregatedQuizScores).map(key => ({
@@ -109,7 +113,8 @@ const Student_Info: React.FC = () => {
 
     aggregateScores();
   }, [grade, studentId]);
-
+  
+// quiz data is not working
   return (
     <div className="row">
       <div className="container-fluid">
@@ -127,13 +132,14 @@ const Student_Info: React.FC = () => {
                 }
                 return null;
               })}
-
+            
+            <div className="row">
               {grade.map(g => {
                 if (g.user_id.toString() === studentId) {
                   if (!hasRenderedPieChart && g.assignment_name === "Roll Call Attendance") {
                     hasRenderedPieChart = true;
                     return (
-                      <div key={g.assignment_name + g.user_id}>
+                      <div key={g.assignment_name + g.user_id} className="col">
                         <H2>Attendance</H2>
                         <PieChartComponent 
                           data={[
@@ -144,34 +150,59 @@ const Student_Info: React.FC = () => {
                         <br />
                       </div>
                     );
-                  }  if (!hasRenderedHomeworkGraph && g.assignment_name.includes("Homework")) {
-                    hasRenderedHomeworkGraph = true;
-                    return (
-                      <div key={g.assignment_name + g.user_id}>
-                        <H2>Homework</H2>
-                        <RechartsBarGraph data={homeworkScores} />
-                        <br />
-                      </div>
-                    );
-                  } if (!hasRenderedQuizGraph && g.assignment_name.includes("Quiz")) {
-                    hasRenderedQuizGraph = true;
-                    return (
-                      <div key={g.assignment_name + g.user_id}>
-                        <H2>Quiz</H2>
-                        <RechartsBarGraph data={quizScores} />
-                        <br />
-                      </div>
-                    );
                   }
                 }
                 return null;
               })}
             </div>
+
+            <div className="row">
+              <div className="col">
+                {grade.map(g => {
+                  if (g.user_id.toString() === studentId) {
+                    if (!hasRenderedHomeworkGraph && g.assignment_name.includes("Homework")) {
+                      hasRenderedHomeworkGraph = true;
+                      return (
+                        <div key={g.assignment_name + g.user_id} className="row">
+                          <div className="col">
+                            <H2>Homework</H2>
+                            <RechartsBarGraph data={homeworkScores} />
+                            <br />
+                          </div>
+                        </div>
+                      );
+                    }
+                  }
+                  return null;
+                })}
+              </div>
+              
+              <div className="col">
+                {grade.map(g => {
+                  if (g.user_id.toString() === studentId) {
+                    if (!hasRenderedQuizGraph && g.assignment_name.includes("Quiz")) {
+                      hasRenderedQuizGraph = true;
+                      return (
+                        <div key={g.assignment_name + g.user_id} className="row">
+                          <div className="col">
+                            <H2>Quiz</H2>
+                            <RechartsBarGraph data={quizScores} />
+                            <br />
+                          </div>
+                        </div>
+                      );
+                    }
+                  }
+                  return null;
+                })}
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  );
-};
+  </div>
+);
+              };
 
 export default Student_Info;
