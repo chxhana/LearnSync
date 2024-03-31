@@ -70,7 +70,7 @@ app.use(cors())
 });
 
 
-// grades -- assignments -- not working -- not server error -- https://canvas.instructure.com/doc/api/submissions.html#method.submissions_api.index
+//missing-- not working -- not server error -- https://canvas.instructure.com/doc/api/submissions.html#method.submissions_api.index
 app.get('/api/courses/:course_id/assignments/:assignment_id/submissions', async (req, res) => {
     const courseId = req.params.course_id;
     const assignment_id = req.params.assignment_id;
