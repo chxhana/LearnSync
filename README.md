@@ -1,5 +1,5 @@
 ## Introduction
-This project aims to develop a Learning and Analytics Platform integrated with the Canvas Learning Management System (LMS). By harnessing the Canvas API, the platform will enable seamless data exchange between its frontend and Canvas. The primary objective is to empower students with valuable insights derived from learning analytics and deliver personalized learning experiences tailored to individual student needs within the Canvas LMS environment. This project is in progress.
+This project aims to develop a Learning and Analytics Platform integrated with the Canvas Learning Management System (LMS). By harnessing the Canvas API, the platform will enable seamless data exchange between its frontend and Canvas. The primary objective is to empower educators with valuable insights derived from learning analytics and deliver personalized learning experiences tailored to individual student needs within the Canvas LMS environment.
 
 
 ## Features
