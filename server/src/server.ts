@@ -51,6 +51,25 @@ app.use(cors())
     }
 });
 
+  //shows all user image
+
+  app.get('/api/courses/:course_id/users', async (req, res) => {
+    const courseId = req.params.course_id;
+
+    try {
+        const response = await axios.get(`https://westminster.instructure.com/api/v1/courses/${courseId}/users`, {
+            params: {
+                include: ['avatar_url']
+            },
+            headers: headers 
+        });
+        res.json(response.data);
+    } catch(error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 
 //shows all assignments for the course
 

@@ -82,7 +82,7 @@ const AssignmentDetails: React.FC = () => {
         .filter((submission) => submission.score === 0 || submission.score === null)
         .map((submission, index) => {
           const studentName = studentDict[submission.user_id] || `User ID: ${submission.user_id}`;
-          return <li key={index}>{studentName}</li>;
+          return <span className="bg-light rounded mx-3 px-5 py-2 shadow" key={index}>{studentName}</span>;
         });
     };
 
@@ -91,7 +91,7 @@ const AssignmentDetails: React.FC = () => {
         .filter((submission) => submission.score !== null) // Filter out submissions with null scores
         .map((submission, index) => {
           const studentName = studentDict[submission.user_id] || `User ID: ${submission.user_id}`;
-          return <li key={index}>{studentName}</li>;
+          return <span className="bg-light rounded mx-3 px-5 py-2 shadow" key={index}>{studentName}</span>;
         });
     };
 
@@ -127,17 +127,22 @@ const AssignmentDetails: React.FC = () => {
                 ]} />}
               </div>
             </div>
-            <div className="row mt-5">
-              <div className="col-lg-6">
-                <div className="text-center">
+            <div className="row mt-5 d-flex flex-column">
+              <div className="col-12 mb-4">
+                <div className="text-center d-flex flex-column align-items-start">
                   <Name>Submitted Assignments:</Name>
+                  <div className="d-flex flex-row align-items-between">
                     {renderSubmittedAssignments()}
+                  </div>
                 </div>
               </div>
-              <div className="col-lg-6">
-                <div className="text-center">
+              <hr />
+              <div className="col-12 mt-3">
+                <div className="text-center d-flex flex-column align-items-start">
                   <Name>Missing Assignments:</Name>
+                  <div className='d-flex flex-row align-items-between'>
                     {renderZeroScoreSubmissions()}
+                  </div>
                 </div>
               </div>
             </div>

@@ -23,25 +23,41 @@ const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
   }
 `;
 
+interface Image {
+  user_id: number;
+  avatar_url: string;
+}
+
+interface Student {
+ id: number;
+ name: string;
+}
+
 const colors = ['#ff595e', '#ffca3a', '#8ac926', '#1982c4', '#6a4c93'];
 
 const Student: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [students, setStudents] = useState<any[]>([]); 
+  const [students, setStudents] = useState<any[]>([]);
+  const [image, setImage] = useState<any[]>([]);
 
   useEffect(() => {
-    const getStudents = async () => {
+    const fetchData = async () => {
       try {
         const studentData = await axios.get(`http://localhost:3001/api/courses/${id}/students`);
+        const imageData = await axios.get(`http://localhost:3001/api/courses/${id}/users`);
         setStudents(studentData.data);
+        setImage(imageData.data);
+        console.log(imageData.data);
       } catch (error: any) {
-        console.error("Error fetching students:", error.message);
+        console.error("Error fetching data:", error.message);
       }
     };
-    getStudents();
+
+    fetchData();
   }, [id]);
 
-  const getColor = (index:number) => colors[index % colors.length];
+  const getColor = (index: number) => colors[index % colors.length];
+  
 
   return (
     <div className="row">
@@ -56,18 +72,23 @@ const Student: React.FC = () => {
         </div>
 
         <div className='p-5 d-flex align-items-left justify-content-around flex-row flex-wrap'>
-          {students.map((student, index) => (
-            <>
-              <Link key={student.id} to={`${student.id}`} className='card d-flex flex-row col-sm-4 flex-column text-decoration-none mb-3' style={{ width: '350px', height: '250px' }}>
-                <div className= 'p-5' style={{minHeight:'200px',  backgroundColor: getColor(index)}}>
-                </div>
-                <div>
-                  <CourseName>{student.name}</CourseName>
-                </div>
-              </Link>
-              {index % 3 === 2 && <div key={`row-${index}`} className="w-100"></div>}
-          </>
-          ))}
+          {students.map((student, index) => {
+            const avatar = image.find(img => img.user_id == student.id)?.avatar_url;
+            console.log(avatar);
+            return (
+              <>
+                <Link key={student.id} to={`${student.id}`} className='card d-flex flex-row col-sm-4 flex-column text-decoration-none mb-3' style={{ width: '350px', height: '250px' }}>
+                  <div style={{ minHeight: '200px', backgroundColor: getColor(index)}}>
+                    {avatar && <img src={avatar} alt="Avatar" style={{ maxWidth: '100%', maxHeight: '100%' }} />}
+                  </div>
+                  <div>
+                    <CourseName>{student.name}</CourseName>
+                  </div>
+                </Link>
+                {index % 3 === 2 && <div key={`row-${index}`} className="w-100"></div>}
+              </>
+            );
+          })}
         </div>
 
       </div>
